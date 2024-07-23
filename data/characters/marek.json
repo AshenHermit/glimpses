@@ -1,0 +1,11 @@
+{
+    "name": "Марек",
+    "code": "marek",
+    "headerImage": "https://i.pinimg.com/564x/82/00/39/82003998cd370abc112a57ea57e7bad0.jpg",
+    "profileImage": "https://i.pinimg.com/564x/af/5e/7d/af5e7de18b0dfd45ac06acad692b84c9.jpg",
+    "posts": [
+        {
+            "md": "first post"
+        }
+    ]
+}
