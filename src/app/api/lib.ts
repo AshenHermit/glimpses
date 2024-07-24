@@ -6,7 +6,7 @@ import path from "path"
 
 const charactersDir = "data/characters"
 
-export async function handleRequest(process: () => Promise<object | boolean | null>) {
+export async function processRequest(process: () => Promise<object | boolean | null>) {
   try {
     const data = await process()
     return NextResponse.json({ result: data, error: "" })

@@ -1,12 +1,10 @@
 import { NextRequest } from "next/server"
 import {
   isCharacterExists,
-  handleRequest as processRequest,
-  readCharacterData,
+  processRequest,
   revalidateCharacter,
   writeCharacterData,
 } from "@/app/api/lib"
-import { revalidatePath } from "next/cache"
 
 export async function POST(req: NextRequest) {
   return await processRequest(async () => {

@@ -1,7 +1,13 @@
-"use client"
-
 import { NextUIProvider } from "@nextui-org/react"
+import { ClientProvider } from "./client"
+import { checkAuthKey } from "../api/auth/lib"
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <NextUIProvider>{children}</NextUIProvider>
+  const authorized = checkAuthKey()
+
+  return (
+    <ClientProvider authorized={authorized}>
+      <NextUIProvider>{children}</NextUIProvider>
+    </ClientProvider>
+  )
 }

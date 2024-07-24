@@ -2,7 +2,7 @@ import { NextRequest } from "next/server"
 import {
   getCharactersPreviews,
   isCharacterExists,
-  handleRequest as processRequest,
+  processRequest,
   readCharacterData,
   writeCharacterData,
 } from "@/app/api/lib"
