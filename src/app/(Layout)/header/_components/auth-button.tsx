@@ -1,5 +1,8 @@
 "use client"
 
+import { useClient } from "@/app/(Providers)/client"
+import { authorizeUser } from "@/app/api/services/authorizeUser"
+import { logoutUser } from "@/app/api/services/logoutUser"
 import {
   Button,
   Modal,
@@ -10,11 +13,12 @@ import {
   Textarea,
   useDisclosure,
 } from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 export function AuthButton() {
-  const database = useDatabase() // TODO: useClient
-  if (database.authorized) {
+  const client = useClient() // TODO: useClient
+  if (client.authorized) {
     return <AuthorizedState />
   } else {
     return <DefaultState />
@@ -24,15 +28,16 @@ export function AuthButton() {
 export function DefaultState() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [error, setError] = React.useState("")
-  const [token, setToken] = React.useState("")
-  const database = useDatabase() // TODO: useClient
+  const [pass, setPass] = React.useState("")
+  const client = useClient() // TODO: useClient
+  const router = useRouter()
 
   const onPress = React.useCallback(() => {
     onOpen()
   }, [onOpen])
 
   const auth = React.useCallback(() => {
-    if (token.trim() == "") {
+    if (pass.trim() == "") {
       setError("эм...")
       return
     } else {
@@ -41,12 +46,13 @@ export function DefaultState() {
 
     ;(async () => {
       try {
-        await database.auth(token)
+        await authorizeUser(pass)
+        router.refresh()
       } catch (e) {
         if (e instanceof Error) setError(e.message)
       }
     })()
-  }, [database, token])
+  }, [pass, router])
 
   return (
     <>
@@ -58,14 +64,14 @@ export function DefaultState() {
               <ModalHeader className="flex flex-col gap-1">Авторизация в базе</ModalHeader>
               <ModalBody>
                 <Textarea
-                  value={token}
-                  onValueChange={setToken}
-                  label="Вставьте dropbox access token"
+                  value={pass}
+                  onValueChange={setPass}
+                  label="Вставьте токен"
                   isInvalid={!!error}
                   errorMessage={error}
                 />
 
-                <div className="text-xs opacity-30">да вся инфа хранится в дропбоксе</div>
+                <div className="text-xs opacity-30">открывает доступ к редактированию</div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -85,13 +91,15 @@ export function DefaultState() {
 
 export function AuthorizedState() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const database = useDatabase() // TODO: useClient
+  const client = useClient() // TODO: useClient
+  const router = useRouter()
 
   const logout = React.useCallback(() => {
     ;(async () => {
-      await database.logout()
+      await logoutUser()
+      router.refresh()
     })()
-  }, [database])
+  }, [router])
 
   return (
     <>

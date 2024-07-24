@@ -22,3 +22,7 @@ export function ClientProvider({
   client.authorized = authorized
   return <ClientContext.Provider value={client}>{children}</ClientContext.Provider>
 }
+
+export function useClient() {
+  return React.useContext(ClientContext)
+}

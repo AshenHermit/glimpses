@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { Roboto_Slab } from "next/font/google"
 import "./globals.css"
-import { Providers } from "./(Providers)/providers"
-import { Header } from "./(Layout)/header/header"
+import { Providers } from "@/app/(Providers)/providers"
+import { Header } from "@/app/(Layout)/header/header"
 
 const inter = Roboto_Slab({ subsets: ["latin", "cyrillic"] })
 
@@ -23,7 +23,6 @@ export default function RootLayout({
           <div className="layout">
             <Header />
             <div className="dark">{children}</div>
-            <div>footer</div>
           </div>
         </Providers>
       </body>
