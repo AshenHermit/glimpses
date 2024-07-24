@@ -56,7 +56,9 @@ export function DefaultState() {
 
   return (
     <>
-      <Button onPress={onPress}>DB auth</Button>
+      <Button onPress={onPress} variant="light">
+        DB auth
+      </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
           {(onClose) => (
@@ -103,7 +105,9 @@ export function AuthorizedState() {
 
   return (
     <>
-      <Button onPress={onOpen}>База данных авторизована</Button>
+      <Button onPress={onOpen} variant="light">
+        База данных авторизована
+      </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

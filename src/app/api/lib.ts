@@ -25,7 +25,7 @@ export async function readCharacterData(characterCode: string) {
     const data = JSON.parse(jsonData)
     return data
   } catch (e) {
-    throw new Error(`no such character as "${characterCode}"`)
+    throw new Error(`404 no such character as "${characterCode}"`)
   }
 }
 
