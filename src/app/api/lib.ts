@@ -23,6 +23,7 @@ export async function readCharacterData(characterCode: string) {
   try {
     jsonData = (await fsPromises.readFile(dataFilePath)).toString("utf-8")
     const data = JSON.parse(jsonData)
+    data.code = characterCode
     return data
   } catch (e) {
     throw new Error(`404 no such character as "${characterCode}"`)
@@ -52,17 +53,18 @@ export async function isCharacterExists(characterCode: string) {
 export async function getCharactersPreviews() {
   const files = readdirSync(charactersDir)
   const codes = files.map((x) => x.split(".")[0])
-  const characters = []
+  let characters = []
   for (let i = 0; i < codes.length; i++) {
     const code = codes[i]
     const char = await readCharacterData(code)
     delete char["posts"]
     characters.push(char)
   }
+  characters = characters.sort((a, b) => a.sort - b.sort)
   return characters
 }
 
 export function revalidateCharacter(code: string) {
   revalidatePath("/")
-  revalidatePath(`/${code}`)
+  revalidatePath(`/diary/${code}`)
 }

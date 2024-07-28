@@ -13,14 +13,8 @@ export async function POST(req: NextRequest) {
     return true
   })
   if (authorized) {
-    res?.cookies.set(AUTH_KEY_COOKIE, ADMIN_PASS)
+    const oneDay = 24 * 60 * 60 * 1000
+    res?.cookies.set(AUTH_KEY_COOKIE, ADMIN_PASS, { expires: Date.now() + oneDay * 30 })
   }
   return res
-}
-
-export async function GET(req: NextRequest) {
-  return await processRequest(async () => {
-    req.cookies.get(AUTH_KEY_COOKIE)
-    return true
-  })
 }

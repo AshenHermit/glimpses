@@ -1,5 +1,5 @@
 import { AddCharacterButton } from "./_components/add-character-button"
-import { getCharacters } from "../api/services/getCharacters"
+import { getCharacters } from "@/app/api/services/getCharacters"
 import { CharacterCard } from "./_components/character-card"
 import { cookies } from "next/headers"
 
